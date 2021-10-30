@@ -1,0 +1,77 @@
+--- 알림 세팅 예시
+
+notifiers:
+  - name: notification-channel-1
+    type: slack
+    org_id: 2
+    is_default: true
+    send_reminder: true
+    frequency: 1h
+    disable_resolve_message: false
+    settings:
+      uploadImage: true
+      token: 'xoxb' # legacy setting since Grafana v7.2 (stored non-encrypted)
+      url: https://slack.com # legacy setting since Grafana v7.2 (stored non-encrypted)
+    # Secure settings that will be encrypted in the database (supported since Grafana v7.2). See `Supported Settings` section for secure settings supported for each notifier.
+    secure_settings:
+      token: 'xoxb'
+      url: https://slack.com
+
+
+
+--- datasources
+
+
+apiVersion: 1
+
+datasources:
+  - name: postgres
+    type: postgres
+    url: postgres:5432
+    database: postgres
+    user: postgres
+    editable: true
+    secureJsonData:
+      password: postgres
+    jsonData:
+      sslmode: "disable"
+
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://prometheus:9090
+    basicAuth: false
+    editable: true
+
+
+---- dashboard
+
+apiVersion: 1
+
+providers:
+  - name: 'Prometheus'
+    orgId: 1
+    folder: ''
+    type: file
+    disableDeletion: false
+    editable: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
+
+
+
+--- alertmanager
+
+route:
+    receiver: 'slack'
+
+receivers:
+    - name: 'slack'
+      slack_configs:
+          - send_resolved: true
+            text: "{{ .CommonAnnotations.description }}"
+            username: 'Prometheus'
+            channel: ''
+            api_url: ''

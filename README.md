@@ -40,6 +40,8 @@ https://github.com/grafana/grafana/blob/main/devenv/dashboards.yaml
 ```
 ./provisioning/notifier
 
+https://github.com/grafana/grafana/blob/main/conf/provisioning/notifiers/sample.yaml
+
 
 ```
 
