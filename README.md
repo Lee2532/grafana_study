@@ -48,7 +48,7 @@ https://github.com/grafana/grafana/blob/main/conf/provisioning/notifiers/sample.
 > 추가 작업해야하는것들
 
 ```
-1. slack 자동 세팅
+1. slack 자동 세팅 (완)
 2. image render 세팅 및 이미지 전송 (with S3 or local save)
 3. 구축된 기능들 자세하게 공부
 4. 타 서버 연동하여 모니터링
