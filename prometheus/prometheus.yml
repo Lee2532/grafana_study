@@ -17,6 +17,11 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['nodeexporter:9100']
+  
+  - job_name: 'django'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:8000']
 
   - job_name: 'cadvisor'
     scrape_interval: 5s
